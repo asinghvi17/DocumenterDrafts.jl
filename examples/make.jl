@@ -6,13 +6,25 @@
 using Documenter
 using DocumenterDrafts
 
-# Define common configuration (shared between makedocs and deploydocs)
-devbranch = "main"  # or "master" depending on your repository
-repo_slug = "MyOrg/MyPackage.jl"
+# ============================================================================
+# METHOD 1: Using deploy_config (RECOMMENDED)
+# ============================================================================
+# This approach shares configuration between DraftConfig and deploydocs,
+# reducing duplication and ensuring consistency.
+
+# Define deploy configuration once
+deploy_config = (
+    repo = "github.com/MyOrg/MyPackage.jl",
+    devbranch = "main",
+    push_preview = true,
+)
 
 # Build documentation with draft marking for PRs
 makedocs(
     sitename = "MyPackage.jl",
+
+    # Set the repo in makedocs - DraftConfig will auto-detect from this
+    repo = "https://github.com/MyOrg/MyPackage.jl",
 
     # Standard Documenter configuration
     format = Documenter.HTML(
@@ -33,7 +45,7 @@ makedocs(
         "Developer Guide" => "dev/contributing.md",
     ],
 
-    # DocumenterDrafts plugin configuration
+    # DocumenterDrafts plugin - uses deploy_config
     plugins = [
         DraftConfig(
             # Pages that should ALWAYS be built fully, even on PRs
@@ -43,30 +55,62 @@ makedocs(
                 "api.md",            # API reference
             ],
 
-            # Development branch (same as deploydocs)
-            devbranch = devbranch,
-
-            # Repository validation (optional but recommended)
-            repo = repo_slug,
+            # Pass the entire deploy configuration
+            # This will extract devbranch, repo, etc. automatically
+            deploy_config = deploy_config,
 
             # Enable CI environment variable detection
-            # (Travis, GitHub Actions, GitLab)
             use_ci_env = true,
 
             # Master enable/disable switch
-            # You can disable for local builds:
-            # enabled = get(ENV, "CI", "false") == "true"
             enabled = true,
         )
     ]
 )
 
-# Deploy documentation (only from devbranch, not from PRs)
-deploydocs(
-    repo = "github.com/$repo_slug",
-    devbranch = devbranch,
-    push_preview = true,  # Enable preview deployments for PRs if desired
-)
+# Deploy documentation - reuse the same deploy_config
+deploydocs(;deploy_config...)
+
+
+# ============================================================================
+# METHOD 2: Using individual parameters (alternative)
+# ============================================================================
+# If you prefer not to use deploy_config, you can specify parameters directly.
+# The repo will be auto-detected from makedocs' repo parameter.
+
+# makedocs(
+#     sitename = "MyPackage.jl",
+#     repo = "https://github.com/MyOrg/MyPackage.jl",  # Auto-detected by DraftConfig
+#     plugins = [
+#         DraftConfig(
+#             always_include = ["index.md", "api.md"],
+#             devbranch = "main",  # Specify explicitly
+#             # repo is auto-detected from makedocs' repo parameter
+#         )
+#     ]
+# )
+#
+# deploydocs(
+#     repo = "github.com/MyOrg/MyPackage.jl",
+#     devbranch = "main",
+# )
+
+
+# ============================================================================
+# METHOD 3: Explicit repo override
+# ============================================================================
+# You can override the repo detection if needed
+
+# makedocs(
+#     sitename = "MyPackage.jl",
+#     plugins = [
+#         DraftConfig(
+#             always_include = ["index.md"],
+#             devbranch = "main",
+#             repo = "MyOrg/MyPackage.jl",  # Explicit override
+#         )
+#     ]
+# )
 
 # How this works:
 #

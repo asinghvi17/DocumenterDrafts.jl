@@ -38,30 +38,36 @@ function Documenter.Selectors.runner(::Type{DraftMarking}, doc::Documenter.Docum
         return
     end
 
-    # Step 2: Validate repo if specified
-    if settings.repo !== nothing && settings.use_ci_env
+    # Step 2: Get effective configuration (respecting deploy_config, explicit config, and doc.user)
+    devbranch = get_effective_devbranch(settings)
+    repo_slug = get_effective_repo(settings, doc)
+
+    @debug "DocumenterDrafts: Effective configuration" devbranch repo_slug
+
+    # Step 3: Validate repo if specified
+    if repo_slug !== nothing && settings.use_ci_env
         travis_repo_slug = get(ENV, "TRAVIS_REPO_SLUG", "")
         github_repository = get(ENV, "GITHUB_REPOSITORY", "")
-        repo_match = occursin(settings.repo, travis_repo_slug) ||
-                     occursin(settings.repo, github_repository)
+        repo_match = occursin(repo_slug, travis_repo_slug) ||
+                     occursin(repo_slug, github_repository)
         if !repo_match
-            @debug "DocumenterDrafts: Repo mismatch, skipping" settings.repo travis_repo_slug github_repository
+            @debug "DocumenterDrafts: Repo mismatch, skipping" repo_slug travis_repo_slug github_repository
             return
         end
     end
 
-    # Step 3: Check if on a PR branch
-    is_pr = is_pull_request(settings.devbranch, settings.use_ci_env)
+    # Step 4: Check if on a PR branch
+    is_pr = is_pull_request(devbranch, settings.use_ci_env)
     if !is_pr
         @debug "DocumenterDrafts: Not on a PR, building all pages fully"
         return  # Not on PR, build everything normally
     end
 
-    # Step 4: Get list of modified .md files
-    modified_files = get_modified_docs(settings.devbranch)
+    # Step 5: Get list of modified .md files
+    modified_files = get_modified_docs(devbranch)
     @info "DocumenterDrafts: Found $(length(modified_files)) modified docs" modified_files
 
-    # Step 5: Iterate over pages and mark drafts
+    # Step 6: Iterate over pages and mark drafts
     draft_count = 0
     for (filename, page) in doc.blueprint.pages
         should_be_draft = !should_build_full(

@@ -27,17 +27,25 @@ Pkg.add("DocumenterDrafts")
 
 In your `docs/make.jl`:
 
+### Method 1: Using `deploy_config` (Recommended)
+
+This approach shares configuration between `DraftConfig` and `deploydocs`, reducing duplication:
+
 ```julia
 using Documenter
 using DocumenterDrafts
 
-# Define common configuration
-devbranch = "main"  # or "master"
-repo_slug = "MyOrg/MyPackage.jl"
+# Define deploy configuration once
+deploy_config = (
+    repo = "github.com/MyOrg/MyPackage.jl",
+    devbranch = "main",
+    push_preview = true,
+)
 
 # Build docs with draft marking for PRs
 makedocs(
     sitename = "MyPackage.jl",
+    repo = "https://github.com/MyOrg/MyPackage.jl",  # Auto-detected by DraftConfig
     pages = [
         "Home" => "index.md",
         "Guide" => "guide.md",
@@ -45,22 +53,35 @@ makedocs(
     ],
     plugins = [
         DraftConfig(
-            always_include = [
-                "index.md",     # Always build the homepage
-                "api.md"        # Always build API docs
-            ],
-            devbranch = devbranch,
-            repo = repo_slug,
-            use_ci_env = true,
-            enabled = true
+            always_include = ["index.md", "api.md"],
+            deploy_config = deploy_config,  # Reuse deploy config
         )
     ]
 )
 
-# Deploy docs (only from devbranch, not from PRs)
+# Deploy docs - reuse the same config
+deploydocs(;deploy_config...)
+```
+
+### Method 2: Auto-detection from `makedocs`
+
+The simplest approach - just specify `devbranch` and let `repo` be auto-detected:
+
+```julia
+makedocs(
+    sitename = "MyPackage.jl",
+    repo = "https://github.com/MyOrg/MyPackage.jl",  # DraftConfig reads this
+    plugins = [
+        DraftConfig(
+            always_include = ["index.md", "api.md"],
+            devbranch = "main",  # Only parameter you need to specify
+        )
+    ]
+)
+
 deploydocs(
-    repo = "github.com/$repo_slug",
-    devbranch = devbranch,
+    repo = "github.com/MyOrg/MyPackage.jl",
+    devbranch = "main",
 )
 ```
 
@@ -84,14 +105,45 @@ The development branch to compare against (similar to `deploydocs`' `devbranch`)
 devbranch = "main"
 ```
 
+### `deploy_config::Union{NamedTuple, Nothing}` (default: `nothing`)
+
+**Recommended approach**: Pass a NamedTuple containing deploydocs configuration. This allows sharing configuration between `DraftConfig` and `deploydocs`, reducing duplication.
+
+When provided, `devbranch` and `repo` will be extracted from this config, overriding individual parameters.
+
+```julia
+deploy_config = (
+    repo = "github.com/MyOrg/MyPackage.jl",
+    devbranch = "main",
+    push_preview = true,
+)
+
+DraftConfig(deploy_config = deploy_config)
+```
+
+Then reuse it:
+```julia
+deploydocs(;deploy_config...)
+```
+
 ### `repo::Union{String, Nothing}` (default: `nothing`)
 
 Repository slug for validation (optional). Format: `"owner/repo"` (e.g., `"JuliaDocs/Documenter.jl"`).
 
-If provided, plugin only activates when building docs for this repo.
+**Auto-detection priority**:
+1. If `deploy_config` is provided, extracts repo from there
+2. If explicitly set, uses the provided value
+3. Otherwise, auto-detects from `makedocs(repo = "...")`
+
+Handles various formats automatically:
+- `"github.com/owner/repo"` → `"owner/repo"`
+- `"https://github.com/owner/repo"` → `"owner/repo"`
+- `"owner/repo.git"` → `"owner/repo"`
 
 ```julia
-repo = "MyOrg/MyPackage.jl"
+repo = "MyOrg/MyPackage.jl"  # Explicit
+# or
+repo = nothing  # Auto-detect from makedocs
 ```
 
 ### `use_ci_env::Bool` (default: `true`)
