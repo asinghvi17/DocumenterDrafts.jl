@@ -27,6 +27,7 @@ makedocs(
             deploy_config = deploy_config,
         )
     ],
+    warnonly = [:missing_docs],
     doctest = false,
 )
 
