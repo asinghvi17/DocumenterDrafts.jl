@@ -1,5 +1,5 @@
 """
-    is_pull_request(devbranch::String, use_ci_env::Bool) -> Bool
+    is_pull_request(doc, devbranch::String, use_ci_env::Bool) -> Bool
 
 Checks if currently building for a PR (inspired by deploydocs logic).
 
@@ -10,8 +10,11 @@ First checks CI environment variables if enabled (most reliable in CI/CD):
 
 Falls back to git branch comparison for local development.
 Returns false on errors (safe default: build everything fully).
+
+The `doc` parameter should be a `Documenter.Documents.Document` instance,
+used to access `doc.user.root` for running git commands in the correct directory.
 """
-function is_pull_request(devbranch::String, use_ci_env::Bool)
+function is_pull_request(doc, devbranch::String, use_ci_env::Bool)
     # First, check CI environment variables if enabled (most reliable in CI/CD)
     if use_ci_env
         # Travis CI detection
@@ -37,8 +40,11 @@ function is_pull_request(devbranch::String, use_ci_env::Bool)
     end
 
     # Fallback: Check git branch name (useful for local development)
+    # Run git commands in the documentation root directory
     try
-        current_branch = readchomp(`git branch --show-current`)
+        current_branch = cd(doc.user.root) do
+            readchomp(`git branch --show-current`)
+        end
 
         # If current branch is different from devbranch, assume it's a PR branch
         is_pr = current_branch != devbranch
@@ -56,24 +62,29 @@ end
 
 
 """
-    get_modified_docs(devbranch::String) -> Set{String}
+    get_modified_docs(doc, devbranch::String) -> Set{String}
 
 Gets list of modified .md files in docs/ directory.
 
-Uses `git diff --name-only devbranch...HEAD -- docs/*.md` to get changes
+Uses `git diff --name-only devbranch...HEAD -- docs/` to get changes
 since the branch diverged from devbranch (three dots).
 
 Returns a Set of relative paths (with "docs/" prefix stripped) to match
 page filenames in Documenter.
 
 Returns empty set on errors (safe default: build everything fully).
+
+The `doc` parameter should be a `Documenter.Documents.Document` instance,
+used to access `doc.user.root` for running git commands in the correct directory.
 """
-function get_modified_docs(devbranch::String)
+function get_modified_docs(doc, devbranch::String)
     try
         # Get diff of .md files in docs/ between base branch and current HEAD
         # Using three dots (...) to get changes since divergence
-        cmd = `git diff --name-only $(devbranch)...HEAD -- docs/`
-        output = readchomp(cmd)
+        # Run git command in the documentation root directory
+        output = cd(doc.user.root) do
+            readchomp(`git diff --name-only $(devbranch)...HEAD -- docs/`)
+        end
 
         if isempty(output)
             @debug "DocumenterDrafts: No modified files detected"
