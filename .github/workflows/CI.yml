@@ -14,13 +14,10 @@ jobs:
       fail-fast: false
       matrix:
         version:
-          - '1.6'
-          - '1.9'
+          - 'lts'
           - '1'  # Latest stable
         os:
           - ubuntu-latest
-          - macOS-latest
-          - windows-latest
     steps:
       - uses: actions/checkout@v4
       - uses: julia-actions/setup-julia@v2
