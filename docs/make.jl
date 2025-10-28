@@ -20,6 +20,7 @@ makedocs(
         "Home" => "index.md",
         "User Guide" => "guide.md",
         "API Reference" => "api.md",
+        "This should be draft" => "tryme.md",
     ],
     plugins = [
         DraftConfig(
