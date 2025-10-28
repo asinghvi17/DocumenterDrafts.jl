@@ -2,9 +2,9 @@ using Documenter
 using DocumenterDrafts
 
 # Dogfooding - use DraftConfig on itself!
-deploy_config = (
-    repo = "github.com/asinghvi17/DocumenterDrafts.jl",
+deploy_config = (;
     devbranch = "main",
+    push_preview = true,
 )
 
 makedocs(
@@ -32,4 +32,4 @@ makedocs(
     doctest = false,
 )
 
-deploydocs(;deploy_config...)
+deploydocs(; repo = "github.com/asinghvi17/DocumenterDrafts.jl", deploy_config...)
