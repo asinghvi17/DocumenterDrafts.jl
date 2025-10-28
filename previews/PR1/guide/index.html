@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>User Guide · DocumenterDrafts.jl</title><meta name="title" content="User Guide · DocumenterDrafts.jl"/><meta property="og:title" content="User Guide · DocumenterDrafts.jl"/><meta property="twitter:title" content="User Guide · DocumenterDrafts.jl"/><meta name="description" content="Documentation for DocumenterDrafts.jl."/><meta property="og:description" content="Documentation for DocumenterDrafts.jl."/><meta property="twitter:description" content="Documentation for DocumenterDrafts.jl."/><meta property="og:url" content="https://asinghvi17.github.io/DocumenterDrafts.jl/guide/"/><meta property="twitter:url" content="https://asinghvi17.github.io/DocumenterDrafts.jl/guide/"/><link rel="canonical" href="https://asinghvi17.github.io/DocumenterDrafts.jl/guide/"/><script data-outdated-warner src="../assets/warner.js"></script><link href="https://cdnjs.cloudflare.com/ajax/libs/lato-font/3.0.0/css/lato-font.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/juliamono/0.050/juliamono.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/fontawesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/solid.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/brands.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.8/katex.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL=".."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" data-main="../assets/documenter.js"></script><script src="../search_index.js"></script><script src="../siteinfo.js"></script><script src="../../versions.js"></script><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/catppuccin-mocha.css" data-theme-name="catppuccin-mocha"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/catppuccin-macchiato.css" data-theme-name="catppuccin-macchiato"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/catppuccin-frappe.css" data-theme-name="catppuccin-frappe"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/catppuccin-latte.css" data-theme-name="catppuccin-latte"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/documenter-dark.css" data-theme-name="documenter-dark" data-theme-primary-dark/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/documenter-light.css" data-theme-name="documenter-light" data-theme-primary/><script src="../assets/themeswap.js"></script></head><body><div id="documenter"><nav class="docs-sidebar"><div class="docs-package-name"><span class="docs-autofit"><a href="../">DocumenterDrafts.jl</a></span></div><button class="docs-search-query input is-rounded is-small is-clickable my-2 mx-auto py-1 px-2" id="documenter-search-query">Search docs (Ctrl + /)</button><ul class="docs-menu"><li><a class="tocitem" href="../">Home</a></li><li class="is-active"><a class="tocitem" href>User Guide</a><ul class="internal"><li><a class="tocitem" href="#Configuration"><span>Configuration</span></a></li><li><a class="tocitem" href="#Usage-Patterns"><span>Usage Patterns</span></a></li><li><a class="tocitem" href="#CI/CD-Integration"><span>CI/CD Integration</span></a></li><li><a class="tocitem" href="#How-Draft-Status-Works"><span>How Draft Status Works</span></a></li><li><a class="tocitem" href="#Troubleshooting"><span>Troubleshooting</span></a></li><li><a class="tocitem" href="#Best-Practices"><span>Best Practices</span></a></li><li><a class="tocitem" href="#Advanced-Usage"><span>Advanced Usage</span></a></li></ul></li><li><a class="tocitem" href="../api/">API Reference</a></li><li><a class="tocitem" href="../tryme/">This should be draft</a></li></ul><div class="docs-version-selector field has-addons"><div class="control"><span class="docs-label button is-static is-size-7">Version</span></div><div class="docs-selector control is-expanded"><div class="select is-fullwidth is-size-7"><select id="documenter-version-selector"></select></div></div></div></nav><div class="docs-main"><header class="docs-navbar"><a class="docs-sidebar-button docs-navbar-link fa-solid fa-bars is-hidden-desktop" id="documenter-sidebar-button" href="#"></a><nav class="breadcrumb"><ul class="is-hidden-mobile"><li class="is-active"><a href>User Guide</a></li></ul><ul class="is-hidden-tablet"><li class="is-active"><a href>User Guide</a></li></ul></nav><div class="docs-right"><a class="docs-navbar-link" href="https://github.com/asinghvi17/DocumenterDrafts.jl" title="Edit source on GitHub"><span class="docs-icon fa-solid"></span></a><a class="docs-settings-button docs-navbar-link fa-solid fa-gear" id="documenter-settings-button" href="#" title="Settings"></a><a class="docs-article-toggle-button fa-solid fa-chevron-up" id="documenter-article-toggle-button" href="javascript:;" title="Collapse all docstrings"></a></div></header><article class="content" id="documenter-page"><h1 id="User-Guide"><a class="docs-heading-anchor" href="#User-Guide">User Guide</a><a id="User-Guide-1"></a><a class="docs-heading-anchor-permalink" href="#User-Guide" title="Permalink"></a></h1><h2 id="Configuration"><a class="docs-heading-anchor" href="#Configuration">Configuration</a><a id="Configuration-1"></a><a class="docs-heading-anchor-permalink" href="#Configuration" title="Permalink"></a></h2><h3 id="DraftConfig-Parameters"><a class="docs-heading-anchor" href="#DraftConfig-Parameters"><code>DraftConfig</code> Parameters</a><a id="DraftConfig-Parameters-1"></a><a class="docs-heading-anchor-permalink" href="#DraftConfig-Parameters" title="Permalink"></a></h3><h4 id="always_include::Vector{String}-(default:-[])"><a class="docs-heading-anchor" href="#always_include::Vector{String}-(default:-[])"><code>always_include::Vector{String}</code> (default: <code>[]</code>)</a><a id="always_include::Vector{String}-(default:-[])-1"></a><a class="docs-heading-anchor-permalink" href="#always_include::Vector{String}-(default:-[])" title="Permalink"></a></h4><p>Pages that should ALWAYS be fully built, regardless of modification status.</p><pre><code class="language-julia hljs">DraftConfig(always_include = [&quot;index.md&quot;, &quot;getting-started.md&quot;, &quot;api/core.md&quot;])</code></pre><p>Use this for:</p><ul><li>Critical pages (homepage, getting started)</li><li>Pages that must always be complete</li><li>Navigation-critical documentation</li></ul><h4 id="devbranch::String-(default:-&quot;master&quot;)"><a class="docs-heading-anchor" href="#devbranch::String-(default:-&quot;master&quot;)"><code>devbranch::String</code> (default: <code>&quot;master&quot;</code>)</a><a id="devbranch::String-(default:-&quot;master&quot;)-1"></a><a class="docs-heading-anchor-permalink" href="#devbranch::String-(default:-&quot;master&quot;)" title="Permalink"></a></h4><p>The main development branch that PRs are made against.</p><pre><code class="language-julia hljs">DraftConfig(devbranch = &quot;main&quot;)</code></pre><h4 id="deploy_config::Union{NamedTuple,-Nothing}-(default:-nothing)"><a class="docs-heading-anchor" href="#deploy_config::Union{NamedTuple,-Nothing}-(default:-nothing)"><code>deploy_config::Union{NamedTuple, Nothing}</code> (default: <code>nothing</code>)</a><a id="deploy_config::Union{NamedTuple,-Nothing}-(default:-nothing)-1"></a><a class="docs-heading-anchor-permalink" href="#deploy_config::Union{NamedTuple,-Nothing}-(default:-nothing)" title="Permalink"></a></h4><p><strong>Recommended approach</strong>: Share configuration with <code>deploydocs</code>.</p><pre><code class="language-julia hljs">deploy_config = (
+    repo = &quot;github.com/MyOrg/MyPackage.jl&quot;,
+    devbranch = &quot;main&quot;,
+    push_preview = true,
+)
+
+DraftConfig(deploy_config = deploy_config)
+deploydocs(;deploy_config...)</code></pre><p>When provided, <code>devbranch</code> and <code>repo</code> are extracted from this config, overriding individual parameters.</p><h4 id="repo::Union{String,-Nothing}-(default:-nothing)"><a class="docs-heading-anchor" href="#repo::Union{String,-Nothing}-(default:-nothing)"><code>repo::Union{String, Nothing}</code> (default: <code>nothing</code>)</a><a id="repo::Union{String,-Nothing}-(default:-nothing)-1"></a><a class="docs-heading-anchor-permalink" href="#repo::Union{String,-Nothing}-(default:-nothing)" title="Permalink"></a></h4><p>Repository slug for validation (optional). Format: <code>&quot;owner/repo&quot;</code>.</p><p><strong>Auto-detection priority</strong>:</p><ol><li><code>deploy_config.repo</code> (if present)</li><li>Explicit <code>config.repo</code> (if set)</li><li><code>makedocs(repo = &quot;...&quot;)</code> (auto-detected from Document)</li></ol><p>The plugin automatically handles various repo URL formats:</p><ul><li><code>&quot;github.com/owner/repo&quot;</code> → <code>&quot;owner/repo&quot;</code></li><li><code>&quot;https://github.com/owner/repo&quot;</code> → <code>&quot;owner/repo&quot;</code></li><li><code>&quot;owner/repo.git&quot;</code> → <code>&quot;owner/repo&quot;</code></li></ul><h4 id="use_ci_env::Bool-(default:-true)"><a class="docs-heading-anchor" href="#use_ci_env::Bool-(default:-true)"><code>use_ci_env::Bool</code> (default: <code>true</code>)</a><a id="use_ci_env::Bool-(default:-true)-1"></a><a class="docs-heading-anchor-permalink" href="#use_ci_env::Bool-(default:-true)" title="Permalink"></a></h4><p>Whether to check CI environment variables for PR detection.</p><p><strong>Checked variables</strong>:</p><ul><li>Travis CI: <code>TRAVIS_PULL_REQUEST</code></li><li>GitHub Actions: <code>GITHUB_EVENT_NAME</code></li><li>GitLab CI: <code>CI_MERGE_REQUEST_ID</code></li></ul><p>Set to <code>false</code> to rely solely on git branch comparison.</p><h4 id="enabled::Bool-(default:-true)"><a class="docs-heading-anchor" href="#enabled::Bool-(default:-true)"><code>enabled::Bool</code> (default: <code>true</code>)</a><a id="enabled::Bool-(default:-true)-1"></a><a class="docs-heading-anchor-permalink" href="#enabled::Bool-(default:-true)" title="Permalink"></a></h4><p>Master enable/disable switch.</p><pre><code class="language-julia hljs"># Only enable in CI
+DraftConfig(enabled = get(ENV, &quot;CI&quot;, &quot;false&quot;) == &quot;true&quot;)
+
+# Disable for local builds
+DraftConfig(enabled = !isinteractive())</code></pre><hr/><h2 id="Usage-Patterns"><a class="docs-heading-anchor" href="#Usage-Patterns">Usage Patterns</a><a id="Usage-Patterns-1"></a><a class="docs-heading-anchor-permalink" href="#Usage-Patterns" title="Permalink"></a></h2><h3 id="Pattern-1:-Shared-deploy_config-(Recommended)"><a class="docs-heading-anchor" href="#Pattern-1:-Shared-deploy_config-(Recommended)">Pattern 1: Shared <code>deploy_config</code> (Recommended)</a><a id="Pattern-1:-Shared-deploy_config-(Recommended)-1"></a><a class="docs-heading-anchor-permalink" href="#Pattern-1:-Shared-deploy_config-(Recommended)" title="Permalink"></a></h3><pre><code class="language-julia hljs">deploy_config = (
+    repo = &quot;github.com/MyOrg/MyPackage.jl&quot;,
+    devbranch = &quot;main&quot;,
+    push_preview = true,
+)
+
+makedocs(
+    sitename = &quot;MyPackage&quot;,
+    repo = &quot;https://github.com/MyOrg/MyPackage.jl&quot;,
+    plugins = [
+        DraftConfig(
+            always_include = [&quot;index.md&quot;],
+            deploy_config = deploy_config,
+        )
+    ]
+)
+
+deploydocs(;deploy_config...)</code></pre><p><strong>Pros</strong>:</p><ul><li>✅ Single source of truth for <code>devbranch</code> and <code>repo</code></li><li>✅ No duplication</li><li>✅ Easy to maintain</li></ul><p><strong>Cons</strong>:</p><ul><li>None!</li></ul><h3 id="Pattern-2:-Auto-detection-from-makedocs"><a class="docs-heading-anchor" href="#Pattern-2:-Auto-detection-from-makedocs">Pattern 2: Auto-detection from <code>makedocs</code></a><a id="Pattern-2:-Auto-detection-from-makedocs-1"></a><a class="docs-heading-anchor-permalink" href="#Pattern-2:-Auto-detection-from-makedocs" title="Permalink"></a></h3><pre><code class="language-julia hljs">makedocs(
+    sitename = &quot;MyPackage&quot;,
+    repo = &quot;https://github.com/MyOrg/MyPackage.jl&quot;,
+    plugins = [
+        DraftConfig(
+            always_include = [&quot;index.md&quot;],
+            devbranch = &quot;main&quot;,
+        )
+    ]
+)
+
+deploydocs(
+    repo = &quot;github.com/MyOrg/MyPackage.jl&quot;,
+    devbranch = &quot;main&quot;,
+)</code></pre><p><strong>Pros</strong>:</p><ul><li>✅ Simple and straightforward</li><li>✅ Repo auto-detected from <code>makedocs</code></li></ul><p><strong>Cons</strong>:</p><ul><li>⚠️ Must specify <code>devbranch</code> in both places</li></ul><h3 id="Pattern-3:-Explicit-Configuration"><a class="docs-heading-anchor" href="#Pattern-3:-Explicit-Configuration">Pattern 3: Explicit Configuration</a><a id="Pattern-3:-Explicit-Configuration-1"></a><a class="docs-heading-anchor-permalink" href="#Pattern-3:-Explicit-Configuration" title="Permalink"></a></h3><pre><code class="language-julia hljs">makedocs(
+    sitename = &quot;MyPackage&quot;,
+    plugins = [
+        DraftConfig(
+            always_include = [&quot;index.md&quot;],
+            devbranch = &quot;main&quot;,
+            repo = &quot;MyOrg/MyPackage.jl&quot;,
+        )
+    ]
+)</code></pre><p><strong>Pros</strong>:</p><ul><li>✅ Explicit and clear</li></ul><p><strong>Cons</strong>:</p><ul><li>⚠️ More verbose</li><li>⚠️ Manual repo specification</li></ul><hr/><h2 id="CI/CD-Integration"><a class="docs-heading-anchor" href="#CI/CD-Integration">CI/CD Integration</a><a id="CI/CD-Integration-1"></a><a class="docs-heading-anchor-permalink" href="#CI/CD-Integration" title="Permalink"></a></h2><h3 id="GitHub-Actions"><a class="docs-heading-anchor" href="#GitHub-Actions">GitHub Actions</a><a id="GitHub-Actions-1"></a><a class="docs-heading-anchor-permalink" href="#GitHub-Actions" title="Permalink"></a></h3><pre><code class="language-yaml hljs">name: Documentation
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: julia-actions/setup-julia@v2
+      - name: Build documentation
+        run: julia --project=docs/ docs/make.jl
+        env:
+          GITHUB_TOKEN: \${{ secrets.GITHUB_TOKEN }}
+          DOCUMENTER_KEY: \${{ secrets.DOCUMENTER_KEY }}</code></pre><p>The plugin automatically detects <code>GITHUB_EVENT_NAME=pull_request</code>.</p><h3 id="Travis-CI"><a class="docs-heading-anchor" href="#Travis-CI">Travis CI</a><a id="Travis-CI-1"></a><a class="docs-heading-anchor-permalink" href="#Travis-CI" title="Permalink"></a></h3><pre><code class="language-yaml hljs">language: julia
+julia:
+  - 1.6
+jobs:
+  include:
+    - stage: &quot;Documentation&quot;
+      julia: 1.6
+      script:
+        - julia --project=docs/ docs/make.jl</code></pre><p>The plugin automatically detects <code>TRAVIS_PULL_REQUEST</code> != &quot;false&quot;.</p><h3 id="GitLab-CI"><a class="docs-heading-anchor" href="#GitLab-CI">GitLab CI</a><a id="GitLab-CI-1"></a><a class="docs-heading-anchor-permalink" href="#GitLab-CI" title="Permalink"></a></h3><pre><code class="language-yaml hljs">docs:
+  script:
+    - julia --project=docs/ docs/make.jl
+  only:
+    - merge_requests
+    - main</code></pre><p>The plugin automatically detects <code>CI_MERGE_REQUEST_ID</code>.</p><hr/><h2 id="How-Draft-Status-Works"><a class="docs-heading-anchor" href="#How-Draft-Status-Works">How Draft Status Works</a><a id="How-Draft-Status-Works-1"></a><a class="docs-heading-anchor-permalink" href="#How-Draft-Status-Works" title="Permalink"></a></h2><h3 id="Setting-Draft-Status"><a class="docs-heading-anchor" href="#Setting-Draft-Status">Setting Draft Status</a><a id="Setting-Draft-Status-1"></a><a class="docs-heading-anchor-permalink" href="#Setting-Draft-Status" title="Permalink"></a></h3><p>The plugin sets <code>page.globals.meta[:Draft] = true</code> for pages that should be drafted.</p><h3 id="Checking-Draft-Status-in-Writers"><a class="docs-heading-anchor" href="#Checking-Draft-Status-in-Writers">Checking Draft Status in Writers</a><a id="Checking-Draft-Status-in-Writers-1"></a><a class="docs-heading-anchor-permalink" href="#Checking-Draft-Status-in-Writers" title="Permalink"></a></h3><p>Writers and custom post-processors can check if a page is marked as a draft:</p><pre><code class="language-julia hljs">function process_page(page::Documenter.Documents.Page)
+    is_draft = get(page.globals.meta, :Draft, false)
+
+    if is_draft
+        # Add &quot;DRAFT&quot; watermark
+        # Skip expensive rendering (plots, diagrams)
+        # Add &lt;meta name=&quot;robots&quot; content=&quot;noindex&quot;&gt;
+        # Use simplified rendering
+    else
+        # Full rendering with all features
+    end
+end</code></pre><h3 id="Example:-Custom-HTML-Writer"><a class="docs-heading-anchor" href="#Example:-Custom-HTML-Writer">Example: Custom HTML Writer</a><a id="Example:-Custom-HTML-Writer-1"></a><a class="docs-heading-anchor-permalink" href="#Example:-Custom-HTML-Writer" title="Permalink"></a></h3><pre><code class="language-julia hljs">function add_draft_banner(html_content::String, page::Documenter.Documents.Page)
+    is_draft = get(page.globals.meta, :Draft, false)
+
+    if is_draft
+        banner = &quot;&quot;&quot;
+        &lt;div class=&quot;draft-banner&quot;&gt;
+            ⚠️ DRAFT: This page may not be complete.
+        &lt;/div&gt;
+        &quot;&quot;&quot;
+        return banner * html_content
+    end
+
+    return html_content
+end</code></pre><hr/><h2 id="Troubleshooting"><a class="docs-heading-anchor" href="#Troubleshooting">Troubleshooting</a><a id="Troubleshooting-1"></a><a class="docs-heading-anchor-permalink" href="#Troubleshooting" title="Permalink"></a></h2><h3 id="Plugin-Not-Activating"><a class="docs-heading-anchor" href="#Plugin-Not-Activating">Plugin Not Activating</a><a id="Plugin-Not-Activating-1"></a><a class="docs-heading-anchor-permalink" href="#Plugin-Not-Activating" title="Permalink"></a></h3><p><strong>Check debug logs</strong>:</p><pre><code class="language-julia hljs">ENV[&quot;JULIA_DEBUG&quot;] = &quot;DocumenterDrafts&quot;</code></pre><p><strong>Common causes</strong>:</p><ol><li>Not on a PR branch (check git branch vs <code>devbranch</code>)</li><li>CI environment variables not set</li><li><code>enabled = false</code></li><li>Repo validation mismatch</li></ol><h3 id="All-Pages-Marked-as-Drafts"><a class="docs-heading-anchor" href="#All-Pages-Marked-as-Drafts">All Pages Marked as Drafts</a><a id="All-Pages-Marked-as-Drafts-1"></a><a class="docs-heading-anchor-permalink" href="#All-Pages-Marked-as-Drafts" title="Permalink"></a></h3><p><strong>Verify <code>always_include</code></strong>:</p><pre><code class="language-julia hljs">DraftConfig(always_include = [&quot;index.md&quot;, &quot;critical-page.md&quot;])</code></pre><p><strong>Check file paths</strong>: Ensure paths are relative to <code>docs/src/</code>:</p><ul><li>✅ <code>&quot;index.md&quot;</code></li><li>✅ <code>&quot;guide/quickstart.md&quot;</code></li><li>❌ <code>&quot;docs/src/index.md&quot;</code> (too long)</li><li>❌ <code>&quot;/index.md&quot;</code> (absolute path)</li></ul><h3 id="No-Pages-Marked-as-Drafts"><a class="docs-heading-anchor" href="#No-Pages-Marked-as-Drafts">No Pages Marked as Drafts</a><a id="No-Pages-Marked-as-Drafts-1"></a><a class="docs-heading-anchor-permalink" href="#No-Pages-Marked-as-Drafts" title="Permalink"></a></h3><p><strong>Possible causes</strong>:</p><ol><li>On <code>devbranch</code> (not a PR)</li><li>Plugin disabled (<code>enabled = false</code>)</li><li>Repo validation failed</li><li>Git diff failed</li></ol><p><strong>Check CI detection</strong>:</p><pre><code class="language-julia hljs"># Force CI detection off to test git branch detection
+DraftConfig(use_ci_env = false)</code></pre><h3 id="Git-Diff-Not-Detecting-Changes"><a class="docs-heading-anchor" href="#Git-Diff-Not-Detecting-Changes">Git Diff Not Detecting Changes</a><a id="Git-Diff-Not-Detecting-Changes-1"></a><a class="docs-heading-anchor-permalink" href="#Git-Diff-Not-Detecting-Changes" title="Permalink"></a></h3><p><strong>Verify git setup</strong>:</p><pre><code class="language-bash hljs">git status
+git log --oneline
+git diff main...HEAD -- docs/</code></pre><p><strong>Common issues</strong>:</p><ul><li>Not in a git repository</li><li>Branch not diverged from <code>devbranch</code></li><li>Modified files not in <code>docs/</code> directory</li><li>Files not committed</li></ul><hr/><h2 id="Best-Practices"><a class="docs-heading-anchor" href="#Best-Practices">Best Practices</a><a id="Best-Practices-1"></a><a class="docs-heading-anchor-permalink" href="#Best-Practices" title="Permalink"></a></h2><h3 id="1.-Always-Include-Critical-Pages"><a class="docs-heading-anchor" href="#1.-Always-Include-Critical-Pages">1. Always Include Critical Pages</a><a id="1.-Always-Include-Critical-Pages-1"></a><a class="docs-heading-anchor-permalink" href="#1.-Always-Include-Critical-Pages" title="Permalink"></a></h3><pre><code class="language-julia hljs">always_include = [
+    &quot;index.md&quot;,           # Homepage
+    &quot;getting-started.md&quot;, # Onboarding
+    &quot;api/core.md&quot;,       # Core API reference
+]</code></pre><h3 id="2.-Use-deploy_config-for-DRY"><a class="docs-heading-anchor" href="#2.-Use-deploy_config-for-DRY">2. Use <code>deploy_config</code> for DRY</a><a id="2.-Use-deploy_config-for-DRY-1"></a><a class="docs-heading-anchor-permalink" href="#2.-Use-deploy_config-for-DRY" title="Permalink"></a></h3><pre><code class="language-julia hljs">deploy_config = (repo = &quot;...&quot;, devbranch = &quot;...&quot;)
+# Use in both DraftConfig and deploydocs</code></pre><h3 id="3.-Enable-Only-in-CI"><a class="docs-heading-anchor" href="#3.-Enable-Only-in-CI">3. Enable Only in CI</a><a id="3.-Enable-Only-in-CI-1"></a><a class="docs-heading-anchor-permalink" href="#3.-Enable-Only-in-CI" title="Permalink"></a></h3><pre><code class="language-julia hljs">DraftConfig(enabled = get(ENV, &quot;CI&quot;, &quot;false&quot;) == &quot;true&quot;)</code></pre><h3 id="4.-Test-Locally"><a class="docs-heading-anchor" href="#4.-Test-Locally">4. Test Locally</a><a id="4.-Test-Locally-1"></a><a class="docs-heading-anchor-permalink" href="#4.-Test-Locally" title="Permalink"></a></h3><pre><code class="language-julia hljs"># On a feature branch, run:
+julia --project=docs/ docs/make.jl
+
+# Check docs/build/ for drafted pages</code></pre><h3 id="5.-Monitor-Logs"><a class="docs-heading-anchor" href="#5.-Monitor-Logs">5. Monitor Logs</a><a id="5.-Monitor-Logs-1"></a><a class="docs-heading-anchor-permalink" href="#5.-Monitor-Logs" title="Permalink"></a></h3><p>Look for:</p><pre><code class="nohighlight hljs">DocumenterDrafts: Found 2 modified docs
+DocumenterDrafts: Marked 3/10 pages as drafts</code></pre><hr/><h2 id="Advanced-Usage"><a class="docs-heading-anchor" href="#Advanced-Usage">Advanced Usage</a><a id="Advanced-Usage-1"></a><a class="docs-heading-anchor-permalink" href="#Advanced-Usage" title="Permalink"></a></h2><h3 id="Custom-Pipeline-Integration"><a class="docs-heading-anchor" href="#Custom-Pipeline-Integration">Custom Pipeline Integration</a><a id="Custom-Pipeline-Integration-1"></a><a class="docs-heading-anchor-permalink" href="#Custom-Pipeline-Integration" title="Permalink"></a></h3><p>You can check draft status in custom pipeline steps:</p><pre><code class="language-julia hljs">abstract type MyCustomStep &lt;: Documenter.Builder.DocumentPipeline end
+
+function Documenter.Selectors.runner(::Type{MyCustomStep}, doc::Documenter.Document)
+    for (filename, page) in doc.blueprint.pages
+        if get(page.globals.meta, :Draft, false)
+            # Skip expensive processing for drafts
+            continue
+        end
+        # Full processing for non-drafts
+    end
+end</code></pre><h3 id="Conditional-Rendering"><a class="docs-heading-anchor" href="#Conditional-Rendering">Conditional Rendering</a><a id="Conditional-Rendering-1"></a><a class="docs-heading-anchor-permalink" href="#Conditional-Rendering" title="Permalink"></a></h3><pre><code class="language-julia hljs">function should_render_expensive_content(page)
+    return !get(page.globals.meta, :Draft, false)
+end</code></pre></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../">« Home</a><a class="docs-footer-nextpage" href="../api/">API Reference »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="auto">Automatic (OS)</option><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option><option value="catppuccin-latte">catppuccin-latte</option><option value="catppuccin-frappe">catppuccin-frappe</option><option value="catppuccin-macchiato">catppuccin-macchiato</option><option value="catppuccin-mocha">catppuccin-mocha</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 1.15.0 on <span class="colophon-date" title="Tuesday 28 October 2025 16:08">Tuesday 28 October 2025</span>. Using Julia version 1.12.1.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
