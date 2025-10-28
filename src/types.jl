@@ -138,9 +138,20 @@ function get_effective_repo(config::DraftConfig, doc)
         return config.repo
     end
 
-    # Priority 3: doc.user.repo (from makedocs)
-    if !isempty(doc.user.repo)
-        return extract_repo_slug(doc.user.repo)
+    # Priority 3: doc.user.remote (from makedocs)
+    # Handle both old (repo field) and new (remote field) Documenter versions
+    if isdefined(doc.user, :repo)
+        # Old Documenter API (< 1.15.0)
+        if !isempty(doc.user.repo)
+            return extract_repo_slug(doc.user.repo)
+        end
+    elseif isdefined(doc.user, :remote) && doc.user.remote !== nothing
+        # New Documenter API (>= 1.15.0)
+        # remote is a Documenter.Remotes.Remote object
+        remote_str = string(doc.user.remote)
+        if !isempty(remote_str)
+            return extract_repo_slug(remote_str)
+        end
     end
 
     return nothing
